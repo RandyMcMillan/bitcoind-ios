@@ -15,12 +15,22 @@ fi
 
 DOCKER_EXEC mkdir -p depends/SDKs depends/sdk-sources
 
+echo $NATIVE_OSX_SDK_PATH
+echo $NATIVE_IOS_SDK_PATH
+
+if [ -n "$NATIVE_OSX_SDK_PATH" ] && [ ! -f depends/MacOSX${NATIVE_OSX_SDK_VERSION}.sdk ]; then
+  ln -s ${NATIVE_OSX_SDK_DIR}/MacOSX${NATIVE_OSX_SDK_VERSION}.sdk depends/SDKs/MacOSX${NATIVE_OSX_SDK_VERSION}.sdk
+fi
+if [ -n "$NATIVE_IOS_SDK_PATH" ] && [ ! -f depends/MacOSX${NATIVE_IOS_SDK_VERSION}.sdk ]; then
+  ln -s ${NATIVE_IOS_SDK_DIR}/MacOSX${NATIVE_IOS_SDK_VERSION}.sdk depends/SDKs/MacOSX${NATIVE_IOS_SDK_VERSION}.sdk
+fi
 if [ -n "$OSX_SDK" ] && [ ! -f depends/sdk-sources/MacOSX${OSX_SDK}.sdk.tar.gz ]; then
   curl --location --fail $SDK_URL/MacOSX${OSX_SDK}.sdk.tar.gz -o depends/sdk-sources/MacOSX${OSX_SDK}.sdk.tar.gz
 fi
 if [ -n "$OSX_SDK" ] && [ -f depends/sdk-sources/MacOSX${OSX_SDK}.sdk.tar.gz ]; then
   DOCKER_EXEC tar -C depends/SDKs -xf depends/sdk-sources/MacOSX${OSX_SDK}.sdk.tar.gz
 fi
+ls depends/SDKs/
 if [[ $HOST = *-mingw32 ]]; then
   DOCKER_EXEC update-alternatives --set $HOST-g++ \$\(which $HOST-g++-posix\)
 fi
