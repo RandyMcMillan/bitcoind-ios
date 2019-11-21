@@ -1,0 +1,11 @@
+make HOST=aarch64-apple-darwin19 NO_WALLET=1 NO_QT=1 NO_UPNP=1
+mv -f src/bitcoind src/bitcoind-ios
+mv -f src/bitcoin-cli src/bitcoin-cli-ios
+mv -f src/bitcoin-tx src/bitcoin-tx-ios
+mv -f src/bitcoin-wallet src/bitcoin-wallet-ios
+
+mv -f src/libbitcoin_cli.a src/libbitcoin_cli.ios.a
+mv -f src/libbitcoin_common.a src/libbitcoin_common.ios.a
+mv -f src/libbitcoin_consensus.a src/libbitcoin_consensus.ios.a
+mv -f src/libbitcoin_server.a src/libbitcoin_server.ios.a
+mv -f src/libbitcoin_zmq.a src/libbitcoin_zmq.ios.a
